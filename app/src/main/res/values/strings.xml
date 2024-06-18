@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Skin Burn Classification</string>
+    <string name="skin_burn_1">Luka bakar derajat satu, biasa disebabkan oleh sunburn dalam waktu lama, api dari kompor, bahan kimia, dan sebagainya Bekas luka akan memudar dalam 7-10 hari dengan adanya pergantian kulit dan sel-sel baru. Pemberian salep akan membantu meredakan nyeri</string>
+    <string name="skin_burn_2">Luka bakar derajat dua (fibrinous exudate) merupakan luka bakar yang memengaruh kulit luar (epidermis) dan kulit tengah (dermis) Bekas luka akan pulih dalam 1-3 minggu, sangat dianjurkan untuk memberikan obat anitibiotik.</string>
+    <string name="skin_burn_3">Luka bakar derajat tiga meruapakn luka bakar yang merusak hingga lapisan kulit terbawah dan memicu kerusakan pada tulang dan otot Pasien dengan luka bakar derajat tiga memerlukan prosedur operasi, termasuk suntikan antibiotik dan infus.</string>
+    <string name="no_sunburn">Luka bakar tidak terdeteksi, gunakan sunscreen dan pakaian tertutup untuk melindungi kulit dari panas.</string>
 </resources>

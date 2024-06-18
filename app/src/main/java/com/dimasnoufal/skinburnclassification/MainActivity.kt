@@ -15,7 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dimasnoufal.skinburnclassification.databinding.ActivityMainBinding
+//import com.dimasnoufal.skinburnclassification.db.HistoryHelper
+//import com.dimasnoufal.skinburnclassification.entity.History
 import com.dimasnoufal.skinburnclassification.ml.MobilenetSkinBurnClassification
+import com.dimasnoufal.skinburnclassification.ml.NasnetmobileSkinBurnDropoutClassification
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.IOException
@@ -34,6 +37,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        binding.ivHistory.setOnClickListener {
+//            startActivity(Intent(this, HistoryActivity::class.java))
+//        }
 
         binding.btnCamera.isEnabled = true
 
@@ -100,8 +107,8 @@ class MainActivity : AppCompatActivity() {
 
     fun classifyImage(image: Bitmap) {
         try {
-            val model: MobilenetSkinBurnClassification =
-                MobilenetSkinBurnClassification.newInstance(applicationContext)
+            val model: NasnetmobileSkinBurnDropoutClassification =
+                NasnetmobileSkinBurnDropoutClassification.newInstance(applicationContext)
             val inputFeature0 =
                 TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
             val byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3)
@@ -118,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             inputFeature0.loadBuffer(byteBuffer)
-            val outputs: MobilenetSkinBurnClassification.Outputs = model.process(inputFeature0)
+            val outputs: NasnetmobileSkinBurnDropoutClassification.Outputs = model.process(inputFeature0)
             val outputFeature0: TensorBuffer = outputs.outputFeature0AsTensorBuffer
             val confidences = outputFeature0.floatArray
             var maxPos = 0
@@ -151,6 +158,56 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }, 1000)
+
+            var deskripsi = arrayOf(
+                R.string.skin_burn_1,
+                R.string.skin_burn_2,
+                R.string.skin_burn_3,
+                R.string.no_sunburn
+            )
+            when (maxPos) {
+                0 -> {
+                    binding.textView3.text = getString(deskripsi[0])
+                }
+
+                1 -> {
+                    binding.textView3.text = getString(deskripsi[1])
+                }
+
+                2 -> {
+                    binding.textView3.text = getString(deskripsi[2])
+                }
+
+                3 -> {
+                    binding.textView3.text = getString(deskripsi[3])
+                }
+            }
+
+            when (maxPos) {
+                0 -> {
+                    var skinBunr1 = Intent(this, SkinBurn1Activity::class.java)
+                    startActivity(skinBunr1)
+                    binding.textView3.visibility = android.view.View.VISIBLE
+                }
+
+                1 -> {
+                    var skinBunr2 = Intent(this, SkinBurn2Activity::class.java)
+                    startActivity(skinBunr2)
+                    binding.textView3.visibility = android.view.View.VISIBLE
+                }
+
+                2 -> {
+                    var skinBunr3 = Intent(this, SkinBurn3Activity::class.java)
+                    startActivity(skinBunr3)
+                    binding.textView3.visibility = android.view.View.VISIBLE
+                }
+
+                3 -> {
+                    var noSunburn = Intent(this, NoSunburnActivity::class.java)
+                    startActivity(noSunburn)
+                    binding.textView3.visibility = android.view.View.VISIBLE
+                }
+            }
         } catch (e: IOException) {
             // Exception handling
         }

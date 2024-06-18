@@ -28,8 +28,23 @@
         android:theme="@style/Theme.SkinBurnClassification"
         tools:targetApi="31">
         <activity
+            android:name=".HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NoSunburnActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SkinBurn3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".SkinBurn2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".SkinBurn1Activity"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
-            android:exported="true"  >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,6 +53,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
+
 </manifest>
